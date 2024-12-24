@@ -1,0 +1,10 @@
+[project]
+name = "llm-agent"
+version = "0.1.0"
+description = "Explore about LLM Agent"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain>=0.3.13",
+    "langgraph>=0.2.60",
+]
