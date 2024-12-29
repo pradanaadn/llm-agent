@@ -1,24 +1,21 @@
-code = """
-import streamlit as st
-import numpy as np
-import plotly.figure_factory as ff
+import os
+import sys
 
-# Add histogram data
-x1 = np.random.randn(200) - 2
-x2 = np.random.randn(200)
-x3 = np.random.randn(200) + 2
 
-# Group data together
-hist_data = [x1, x2, x3]
+def setup_python_path():
+    # Clear the sys.path and add only the current working directory and its parent
+    sys.path.clear()
 
-group_labels = ['Group 1', 'Group 2', 'Group 3']
+    # Add the current working directory
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+    sys.path.append(current_dir)
 
-# Create distplot with custom bin_size
-fig = ff.create_distplot(
-        hist_data, group_labels, bin_size=[.1, .25, .5])
+    # Add the parent directory to the Python path
+    parent_dir = os.path.abspath(os.path.join(current_dir, ".."))
+    sys.path.append(parent_dir)
 
-# Plot!
-st.plotly_chart(fig, use_container_width=True)
-"""
+    # Print the Python path for debugging
+    print("Python path:", sys.path)
 
-exec(code)
+
+setup_python_path()

@@ -1,6 +1,6 @@
 import pandas as pd
 
-def extract_metadata(df):
+def extract_metadata(df:pd.DataFrame):
     metadata = {}
 
     # Number of columns
