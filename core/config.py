@@ -1,21 +1,18 @@
-import os
-import sys
+from pydantic import BaseModel
+from typing import Dict
+import yaml
 
 
-def setup_python_path():
-    # Clear the sys.path and add only the current working directory and its parent
-    sys.path.clear()
+class ServiceConfig(BaseModel):
+    API_KEY: str
 
-    # Add the current working directory
-    current_dir = os.path.abspath(os.path.dirname(__file__))
-    sys.path.append(current_dir)
+class Config(BaseModel):
+    LLM: Dict[str, ServiceConfig]
 
-    # Add the parent directory to the Python path
-    parent_dir = os.path.abspath(os.path.join(current_dir, ".."))
-    sys.path.append(parent_dir)
+def load_config(file_path: str) -> Config:
+    with open(file_path, 'r') as file:
+        config_dict = yaml.safe_load(file)
+    return Config(**config_dict)
 
-    # Print the Python path for debugging
-    print("Python path:", sys.path)
+config = load_config('secrets.yaml')
 
-
-setup_python_path()
